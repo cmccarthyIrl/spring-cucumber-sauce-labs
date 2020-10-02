@@ -78,7 +78,7 @@ public abstract class AbstractPage {
                 driver = new RemoteWebDriver(url, browserOptions);
                 break;
             default:
-                throw new NoSuchElementException("NoSuchElementException");
+                throw new NoSuchElementException("NoSuchElementException :"+applicationProperties.getBrowser().toLowerCase());
         }
         return driver;
     }
