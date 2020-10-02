@@ -1,6 +1,6 @@
 # Spring Cucumber Test Harness
 
-[![Build Status](https://travis-ci.org/cmccarthyIrl/spring-cucumber-test-harness.svg?branch=master)](https://travis-ci.org/cmccarthyIrl/spring-cucumber-test-harness)
+[![Build Status](https://travis-ci.com/cmccarthyIrl/spring-cucumber-sauce-labs.svg?token=GKEXKzjZBdCNxoQnxKKs&branch=master)](https://travis-ci.com/cmccarthyIrl/spring-cucumber-sauce-labs)
  
  <!-- [![codecov](https://codecov.io/gh/cmccarthyIrl/spring-cucumber-test-harness/branch/master/graph/badge.svg)](https://codecov.io/gh/cmccarthyIrl/spring-cucumber-test-harness) [![Release](https://img.shields.io/github/release/jenkinsci/jacoco-plugin.svg)](https://github.com/jenkinsci/jacoco-plugin/releases) -->
 # Index
