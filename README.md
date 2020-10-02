@@ -1,5 +1,6 @@
 # Spring Cucumber Test Harness
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8588046c24e443f2a148d4b04555b73f)](https://app.codacy.com/gh/cmccarthyIrl/spring-cucumber-sauce-labs?utm_source=github.com&utm_medium=referral&utm_content=cmccarthyIrl/spring-cucumber-sauce-labs&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.com/cmccarthyIrl/spring-cucumber-sauce-labs.svg?token=GKEXKzjZBdCNxoQnxKKs&branch=master)](https://travis-ci.com/cmccarthyIrl/spring-cucumber-sauce-labs)
  
  <!-- [![codecov](https://codecov.io/gh/cmccarthyIrl/spring-cucumber-sauce-labs/branch/master/graph/badge.svg)](https://codecov.io/gh/cmccarthyIrl/spring-cucumber-sauce-labs) [![Release](https://img.shields.io/github/release/jenkinsci/jacoco-plugin.svg)](https://github.com/jenkinsci/jacoco-plugin/releases) -->
