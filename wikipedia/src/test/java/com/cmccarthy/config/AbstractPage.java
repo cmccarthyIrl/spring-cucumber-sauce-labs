@@ -4,6 +4,8 @@ import com.cmccarthy.utils.ApplicationProperties;
 import com.cmccarthy.utils.InvisibilityOfElement;
 import com.cmccarthy.utils.VisibilityOfElement;
 import com.cmccarthy.utils.VisibilityOfElementLocated;
+import com.saucelabs.common.SauceOnDemandAuthentication;
+import org.junit.After;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -27,11 +29,15 @@ public abstract class AbstractPage {
     @Autowired
     private ApplicationProperties applicationProperties;
 
-    private WebDriver driver;
+    private static WebDriver driver;
     private Wait<WebDriver> wait;
+    public static String username = System.getenv("SAUCE_USERNAME");
+    public static String accessKey = System.getenv("SAUCE_ACCESS_KEY");
+
     private final Thread CLOSE_THREAD = new Thread() {
         @Override
         public void run() {
+            driver.quit();
             driver.close();
         }
     };
@@ -56,24 +62,16 @@ public abstract class AbstractPage {
                 driver = new ChromeDriver();
                 break;
             case "sauce":
-                String username = System.getenv("SAUCE_USERNAME");
-                String accessKey = System.getenv("SAUCE_ACCESS_KEY");
-
                 ChromeOptions chromeOpts = new ChromeOptions();
 
-                MutableCapabilities sauceOpts = new MutableCapabilities();
-                sauceOpts.setCapability("name", "scenario.getName()");
-                sauceOpts.setCapability("username", username);
-                sauceOpts.setCapability("accessKey", accessKey);
-
                 MutableCapabilities browserOptions = new MutableCapabilities();
-                browserOptions.setCapability(ChromeOptions.CAPABILITY, chromeOpts);
-                browserOptions.setCapability("sauce:options", sauceOpts);
+                browserOptions.setCapability(ChromeOptions.CAPABILITY,  chromeOpts);
+                browserOptions.setCapability("name", "scenario.getName()");
                 browserOptions.setCapability("browserName", "chrome");
                 browserOptions.setCapability("browserVersion", "latest");
                 browserOptions.setCapability("platformName", "windows 10");
 
-                String sauceUrl = "https://ondemand.saucelabs.com:443/wd/hub";
+                String sauceUrl = "https://"+username+":"+accessKey+"@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
                 URL url = new URL(sauceUrl);
                 driver = new RemoteWebDriver(url, browserOptions);
                 break;

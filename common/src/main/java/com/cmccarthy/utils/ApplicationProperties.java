@@ -10,7 +10,7 @@ public class ApplicationProperties {
     private String weatherAppUrl;
     @Value("${wikipedia.url.value}")
     private String wikipediaUrl;
-    @Value("${browser}")
+    @Value("${browser.value}")
     private String browser;
 
     public String getWeatherAppUrl() {

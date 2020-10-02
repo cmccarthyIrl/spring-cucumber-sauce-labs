@@ -43,7 +43,6 @@
     </parent>
 
     <properties>
-        <browser>firefox</browser>
         <cucumber.version>1.2.5</cucumber.version>
         <assertj-core.version>3.11.1</assertj-core.version>
         <java.version>1.8</java.version>
@@ -214,6 +213,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${surfire.plugin.version}</version>
+                    <configuration>
+                        <parallel>classes</parallel>
+                        <threadCount>40</threadCount>
+                        <redirectTestOutputToFile>false</redirectTestOutputToFile>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -228,11 +232,17 @@
         </profile>
         <profile>
             <id>prod</id>
+            <properties>
+                <activatedProperties>prod</activatedProperties>
+            </properties>
+        </profile>
+        <profile>
+            <id>sauce</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <activatedProperties>prod</activatedProperties>
+                <activatedProperties>sauce</activatedProperties>
             </properties>
         </profile>
         <profile>
