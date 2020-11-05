@@ -33,20 +33,19 @@ The Framework uses [Sauce Labs](https://mvnrepository.com/artifact/com.saucelabs
 ```xml
 <dependecies>
     ...
-        <dependency>
-            <groupId>com.saucelabs</groupId>
-            <artifactId>sauce_junit</artifactId>
-            <version>2.1.20</version>
-            <scope>test</scope>
-        </dependency>
+    <dependency>
+        <groupId>com.browserstack</groupId>
+        <artifactId>browserstack-local-java</artifactId>
+        <version>1.0.3</version>
+    </dependency>
     ...
 </dependecies>
 ```
 > To integrate the framework with Sauce Labs set the following values in the `AbstractPage.class`  
 
 ```java
-     public static String username = System.getenv("SAUCE_USERNAME");
-     public static String accessKey = System.getenv("SAUCE_ACCESS_KEY");
+     public static String username = System.getenv("BROWSERSTACK_USERNAME");
+     public static String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
 ```
 # Quickstart
 

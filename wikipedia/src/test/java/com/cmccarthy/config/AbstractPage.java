@@ -29,8 +29,9 @@ public abstract class AbstractPage {
 
     private static WebDriver driver;
     private Wait<WebDriver> wait;
-    public static String username = System.getenv("SAUCE_USERNAME");
-    public static String accessKey = System.getenv("SAUCE_ACCESS_KEY");
+    public static String username = System.getenv("BROWSERSTACK_USERNAME");
+    public static String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
+
 
     private final Thread CLOSE_THREAD = new Thread() {
         @Override
@@ -106,62 +107,5 @@ public abstract class AbstractPage {
             throw new Error(t);
         }
         return result;
-    }
-
-    /**
-     * Wait until element not present
-     *
-     * @param element element
-     * @return boolean
-     */
-    protected boolean waitForElementNotPresent(WebElement element) {
-        boolean result = true;
-        try {
-            wait.until(new InvisibilityOfElement(element));
-        } catch (TimeoutException e) {
-            result = false;
-        } catch (Throwable t) {
-            throw new Error(t);
-        }
-        return result;
-    }
-
-    /**
-     * Wait until element present by locator
-     *
-     * @param locator locator
-     * @return boolean
-     */
-    protected boolean waitForElementPresent(By locator) {
-        boolean result = true;
-        try {
-            wait.until(new VisibilityOfElementLocated(locator));
-        } catch (TimeoutException e) {
-            result = false;
-        } catch (Throwable t) {
-            throw new Error(t);
-        }
-        return result;
-    }
-
-    /**
-     * Type string into element
-     *
-     * @param element element
-     * @param s       string
-     */
-    protected void typeInto(WebElement element, String s) {
-        element.clear();
-        element.sendKeys(s);
-    }
-
-    /**
-     * Get attribute "value" of the element
-     *
-     * @param element element
-     * @return value
-     */
-    protected String getValue(WebElement element) {
-        return element.getAttribute("value");
     }
 }
