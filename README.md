@@ -1,4 +1,4 @@
-# Spring Cucumber - Travis CI - Browsestack
+# Spring Cucumber - Travis CI - Browserstack
 
 [![Build Status](https://travis-ci.com/cmccarthyIrl/spring-cucumber-travis-ci-browser-stack.svg?branch=master)](https://travis-ci.com/cmccarthyIrl/spring-cucumber-travis-ci-browser-stack) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1047241f8b9542b7a6c53586f3117982)](https://www.codacy.com/gh/cmccarthyIrl/spring-cucumber-travis-ci-browser-stack/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=cmccarthyIrl/spring-cucumber-travis-ci-browser-stack&amp;utm_campaign=Badge_Grade)
  
