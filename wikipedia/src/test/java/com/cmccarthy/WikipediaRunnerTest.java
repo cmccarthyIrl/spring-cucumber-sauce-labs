@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
         plugin = {
                 "html:target/cucumber-html-reports",
                 "json:target/cucumber-json-report.json",
+                "com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html"
         },
         glue = {"com/cmccarthy/step",
                 "com/cmccarthy/utils"

@@ -1,6 +1,7 @@
 package com.cmccarthy.utils;
 
 import com.browserstack.local.Local;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -17,11 +18,16 @@ import java.util.Map;
 public class DriverManager {
 
     private WebDriver webDriver;
+    private Local local;
+
     private final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
     private final ThreadLocal<Wait<WebDriver>> driverWaitThreadLocal = new ThreadLocal<>();
 
-    public static String username = System.getenv("BROWSERSTACK_USERNAME");
-    public static String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
+    public static String usernameInTravis = System.getenv("BROWSERSTACK_USERNAME");
+    public static String accessKeyInTravis = System.getenv("BROWSERSTACK_ACCESS_KEY");
+
+    public static String username = "";
+    public static String accessKey = "";
 
     @Autowired
     private ApplicationProperties applicationProperties;
@@ -32,9 +38,12 @@ public class DriverManager {
     }
 
     private void setBrowserStackDriver() throws Exception {
+        local = new Local();
+        final String localIdentifier = RandomStringUtils.random(10, true, false);
+
         final DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("build", applicationProperties.getBuildName());
-        caps.setCapability("browserName", applicationProperties.getBrowserName());
+        caps.setCapability("browserName", applicationProperties.getBrowser());
         caps.setCapability("browserVersion", applicationProperties.getBrowserVersion());
         caps.setCapability("os", applicationProperties.getOs());
         caps.setCapability("os_version", applicationProperties.getOsVersion());
@@ -42,14 +51,24 @@ public class DriverManager {
         caps.setCapability("real_mobile", applicationProperties.getRealMobile());
 
         if ((applicationProperties.getLocal() != null) && (applicationProperties.getLocal().equalsIgnoreCase("true"))) {
-            final Local local = new Local();
-            Map<String, String> args = new HashMap<>();
-            args.put("key", accessKey);
-            local.start(args);
+            Map<String, String> localConnectionOptions = new HashMap<>();
+            if(username.length() > 3){
+                localConnectionOptions.put("key", accessKey);
+            }else{
+                localConnectionOptions.put("key", accessKeyInTravis);
+            }
+            localConnectionOptions.put("localIdentifier", localIdentifier);
+            local.start(localConnectionOptions);
             caps.setCapability("browserstack.local", "true");
+            caps.setCapability("browserstack.localIdentifier", localIdentifier);
         }
 
-        webDriver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"), caps);
+        if(username.length() > 3){
+            webDriver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"), caps);
+        }else{
+            webDriver = new RemoteWebDriver(new URL("https://" + usernameInTravis + ":" + accessKeyInTravis + "@hub.browserstack.com/wd/hub"), caps);
+        }
+
         driverThreadLocal.set(webDriver);
         final Wait<WebDriver> webDriverWait = new WebDriverWait(webDriver, 30, 500);
         driverWaitThreadLocal.set(webDriverWait);
@@ -67,6 +86,11 @@ public class DriverManager {
     private final Thread CLOSE_THREAD = new Thread() {
         @Override
         public void run() {
+            try {
+                local.stop();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             webDriver.quit();
         }
     };

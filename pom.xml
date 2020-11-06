@@ -42,6 +42,7 @@
     </parent>
 
     <properties>
+        <activeProfile>prod</activeProfile>
         <cucumber.version>1.2.5</cucumber.version>
         <assertj-core.version>3.11.1</assertj-core.version>
         <java.version>1.8</java.version>
@@ -245,17 +246,11 @@
         </profile>
         <profile>
             <id>prod</id>
-            <properties>
-                <activatedProperties>prod</activatedProperties>
-            </properties>
-        </profile>
-        <profile>
-            <id>sauce</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <activatedProperties>sauce</activatedProperties>
+                <activatedProperties>prod</activatedProperties>
             </properties>
         </profile>
         <profile>

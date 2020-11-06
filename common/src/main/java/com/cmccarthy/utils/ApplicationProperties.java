@@ -9,9 +9,6 @@ public class ApplicationProperties {
     @Value("${browser.value}")
     private String browser;
 
-    @Value("${build.name.value}")
-    private String browserName;
-
     @Value("${browser.version.value}")
     private String browserVersion;
 
@@ -33,6 +30,9 @@ public class ApplicationProperties {
     @Value("${local.value}")
     private String local;
 
+   @Value("${wikipedia.url.value}")
+    private String wikipediaUrl;
+
     public String getBuildName() {
         return buildName;
     }
@@ -47,14 +47,6 @@ public class ApplicationProperties {
 
     public void setBrowser(String browser) {
         this.browser = browser;
-    }
-
-    public String getBrowserName() {
-        return browserName;
-    }
-
-    public void setBrowserName(String browserName) {
-        this.browserName = browserName;
     }
 
     public String getBrowserVersion() {
@@ -103,5 +95,13 @@ public class ApplicationProperties {
 
     public void setLocal(String local) {
         this.local = local;
+    }
+
+    public String getWikipediaUrl() {
+        return wikipediaUrl;
+    }
+
+    public void setWikipediaUrl(String wikipediaUrl) {
+        this.wikipediaUrl = wikipediaUrl;
     }
 }
