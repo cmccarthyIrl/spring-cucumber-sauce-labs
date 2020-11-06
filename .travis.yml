@@ -1,0 +1,28 @@
+sudo: false
+
+os: linux
+
+dist: trusty
+
+before_install:
+  - sudo apt-get update
+
+addons:
+  browserstack:
+    username: ${BROWSERSTACK_USERNAME}
+    access_key:
+      secure: ${BROWSERSTACK_ACCESS_KEY}
+
+language: java
+
+jdk:
+  - oraclejdk8
+
+cache:
+  directories:
+    - $HOME/.m2
+
+jobs:
+  include:
+    - stage: test
+      script: mvn test install

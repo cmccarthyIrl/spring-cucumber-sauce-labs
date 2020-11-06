@@ -137,10 +137,9 @@
             <version>${selenium-version}</version>
         </dependency>
         <dependency>
-            <groupId>com.saucelabs</groupId>
-            <artifactId>sauce_junit</artifactId>
-            <version>2.1.20</version>
-            <scope>test</scope>
+            <groupId>com.browserstack</groupId>
+            <artifactId>browserstack-local-java</artifactId>
+            <version>1.0.1</version>
         </dependency>
 
         <!--test dependencies-->
