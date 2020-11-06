@@ -16,6 +16,9 @@ import org.junit.runner.RunWith;
         },
         features = {"classpath:feature/WikipediaTest.feature"}
 )
-public class WikipediaRunnerTest {}
+public class WikipediaRunnerTest {
+
+
+}
 
 

@@ -19,11 +19,10 @@ import org.springframework.stereotype.Service;
 public class LogFactoryService {
 
     private static final ThreadLocal<Logger> logFactory = new ThreadLocal<>();
-    private String tempFeatureFileName = "";
-
     private final static String PATTERN = "%d{yyyy-MM-dd HH-mm-ss} | %-5p | %C{1}:%L | %m%n";
     private final static String MAX_FILE_SIZE = "100MB";
     private final static String MAX_BACKUP_INDEX = "100";
+    private String tempFeatureFileName = "";
 
     public void createNewLogger(String featureName) {
         LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
@@ -31,20 +30,20 @@ public class LogFactoryService {
         ctx.start(config);
         ctx.updateLoggers(config);
         Logger logger = ctx.getLogger("Thread" + featureName);
-        logger.addAppender(addFileAppender(config, "fileAppender", featureName));
-        logger.addAppender(addConsoleAppender("consoleAppender"));
+        logger.addAppender(addFileAppender(config, featureName));
+        logger.addAppender(addConsoleAppender());
         Configurator.setLevel(logger.getName(), Level.INFO);
 
         logFactory.set(logger);
     }
 
-    private Appender addFileAppender(Configuration config, String appenderName, String featureName) {
-        Layout layout = PatternLayout.newBuilder()
+    private Appender addFileAppender(Configuration config, String featureName) {
+        final Layout layout = PatternLayout.newBuilder()
                 .withConfiguration(config)
                 .withPattern(PATTERN).build();
         RollingFileAppender appender = RollingFileAppender.newBuilder()
                 .withFileName("logs/" + featureName + ".log")
-                .setName(appenderName)
+                .setName("fileAppender")
                 .withFilePattern(featureName + "%i.log")
                 .setLayout(layout)
                 .withPolicy(SizeBasedTriggeringPolicy.createPolicy(MAX_FILE_SIZE))
@@ -56,9 +55,9 @@ public class LogFactoryService {
         return appender;
     }
 
-    private Appender addConsoleAppender(String appenderName) {
+    private Appender addConsoleAppender() {
         ConsoleAppender appender = ConsoleAppender.newBuilder()
-                .setName(appenderName)
+                .setName("consoleAppender")
                 .withImmediateFlush(true)
                 .build();
 

@@ -4,9 +4,6 @@ os: linux
 
 dist: trusty
 
-before_install:
-  - sudo apt-get update
-
 addons:
   browserstack:
     username: ${BROWSERSTACK_USERNAME}
@@ -25,4 +22,4 @@ cache:
 jobs:
   include:
     - stage: test
-      script: mvn test install
+      script: mvn clean test

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,24 +18,33 @@ import java.util.Map;
 @Component
 public class DriverManager {
 
-    private WebDriver webDriver;
-    private Local local;
-
+    public static String usernameInTravis = System.getenv("BROWSERSTACK_USERNAME");
+    public static String accessKeyInTravis = System.getenv("BROWSERSTACK_ACCESS_KEY");
+    //purely for local testing / use travis instead / do not commit username & password
+    public static String username = "";
+    public static String accessKey = "";
     private final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
     private final ThreadLocal<Wait<WebDriver>> driverWaitThreadLocal = new ThreadLocal<>();
 
-    public static String usernameInTravis = System.getenv("BROWSERSTACK_USERNAME");
-    public static String accessKeyInTravis = System.getenv("BROWSERSTACK_ACCESS_KEY");
-
-    public static String username = "";
-    public static String accessKey = "";
-
+    private WebDriver webDriver;
+    private Local local;
+    private final Thread CLOSE_THREAD = new Thread() {
+        @Override
+        public void run() {
+            try {
+                local.stop();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            webDriver.quit();
+        }
+    };
     @Autowired
     private ApplicationProperties applicationProperties;
 
     @Autowired
     public void createWebDriver() throws Exception {
-            setBrowserStackDriver();
+        setBrowserStackDriver();
     }
 
     private void setBrowserStackDriver() throws Exception {
@@ -52,9 +62,9 @@ public class DriverManager {
 
         if ((applicationProperties.getLocal() != null) && (applicationProperties.getLocal().equalsIgnoreCase("true"))) {
             Map<String, String> localConnectionOptions = new HashMap<>();
-            if(username.length() > 3){
+            if (username.length() > 3) {
                 localConnectionOptions.put("key", accessKey);
-            }else{
+            } else {
                 localConnectionOptions.put("key", accessKeyInTravis);
             }
             localConnectionOptions.put("localIdentifier", localIdentifier);
@@ -63,9 +73,9 @@ public class DriverManager {
             caps.setCapability("browserstack.localIdentifier", localIdentifier);
         }
 
-        if(username.length() > 3){
+        if (username.length() > 3) {
             webDriver = new RemoteWebDriver(new URL("https://" + username + ":" + accessKey + "@hub.browserstack.com/wd/hub"), caps);
-        }else{
+        } else {
             webDriver = new RemoteWebDriver(new URL("https://" + usernameInTravis + ":" + accessKeyInTravis + "@hub.browserstack.com/wd/hub"), caps);
         }
 
@@ -82,16 +92,4 @@ public class DriverManager {
     public Wait<WebDriver> getDriverWait() {
         return driverWaitThreadLocal.get();
     }
-
-    private final Thread CLOSE_THREAD = new Thread() {
-        @Override
-        public void run() {
-            try {
-                local.stop();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            webDriver.quit();
-        }
-    };
 }

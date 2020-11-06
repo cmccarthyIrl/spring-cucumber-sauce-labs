@@ -30,7 +30,7 @@ public class ApplicationProperties {
     @Value("${local.value}")
     private String local;
 
-   @Value("${wikipedia.url.value}")
+    @Value("${wikipedia.url.value}")
     private String wikipediaUrl;
 
     public String getBuildName() {

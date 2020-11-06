@@ -1,7 +1,6 @@
 package com.cmccarthy.config;
 
 import com.cmccarthy.service.LogFactoryService;
-import com.cmccarthy.utils.ApplicationProperties;
 import com.cmccarthy.utils.DriverManager;
 import com.cmccarthy.utils.VisibilityOfElement;
 import org.junit.Assert;

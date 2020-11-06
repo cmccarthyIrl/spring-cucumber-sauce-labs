@@ -18,10 +18,10 @@ public class HookUtils {
         }
     }
 
-    public void endOfTest() {
+    public void endOfTest(String testStatus) {
         logFactoryService.getLogger().info("");
         logFactoryService.getLogger().info("==========================================================================");
-        logFactoryService.getLogger().info("==============================TEST COMPLETED==============================");
+        logFactoryService.getLogger().info("================================Test " + testStatus + "===============================");
         logFactoryService.getLogger().info("==========================================================================");
         logFactoryService.getLogger().info("");
     }
