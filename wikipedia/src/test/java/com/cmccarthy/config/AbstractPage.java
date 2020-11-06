@@ -86,7 +86,6 @@ public abstract class AbstractPage {
 
     private void getElementLocator(WebElement element) {
         try {
-            System.out.println("element.toString().split(\">\")[1].replace(\"]\", \"\") = " + element.toString());
             logFactoryService.getLogger().debug("Waiting for element to be present by locator :" + element.toString().split(">")[1].replace("]", ""));
         } catch (IndexOutOfBoundsException ex) {
             logFactoryService.getLogger().debug("Waiting for element to be present by locator :" + element.toString().split("'")[1].replace("]", ""));

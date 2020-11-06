@@ -28,7 +28,7 @@
     
 # Maven
 
-The Framework uses [Sauce Labs](https://mvnrepository.com/artifact/com.saucelabs/sauce_junit) `<dependencies>`:
+The Framework uses [Browserstack](https://mvnrepository.com/artifact/com.browserstack/browserstack-local-java/1.0.3) `<dependencies>`:
 
 ```xml
 <dependecies>
@@ -41,7 +41,7 @@ The Framework uses [Sauce Labs](https://mvnrepository.com/artifact/com.saucelabs
     ...
 </dependecies>
 ```
-> To integrate the framework with Sauce Labs set the following values in the `AbstractPage.class`  
+> To integrate the framework with Browserstack set the following values in the `AbstractPage.class`  
 
 ```java
      public static String username = System.getenv("BROWSERSTACK_USERNAME");
