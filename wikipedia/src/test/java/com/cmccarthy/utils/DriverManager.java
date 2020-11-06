@@ -53,7 +53,14 @@ public class DriverManager {
 
         final DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("build", applicationProperties.getBuildName());
-        caps.setCapability("browserName", applicationProperties.getBrowser());
+
+        if(System.getProperty("browser") != null){
+            caps.setCapability("browserName", System.getProperty("browser"));
+        }else{
+            caps.setCapability("browserName", applicationProperties.getBrowser());
+
+        }
+
         caps.setCapability("browserVersion", applicationProperties.getBrowserVersion());
         caps.setCapability("os", applicationProperties.getOs());
         caps.setCapability("os_version", applicationProperties.getOsVersion());
@@ -91,5 +98,8 @@ public class DriverManager {
 
     public Wait<WebDriver> getDriverWait() {
         return driverWaitThreadLocal.get();
+    }
+
+    public void createDriver(String browser, String operatingSystem) {
     }
 }

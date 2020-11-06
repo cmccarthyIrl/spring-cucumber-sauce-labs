@@ -18,7 +18,7 @@ public class WikipediaPageSteps extends AbstractTestDefinition {
     @Autowired
     private WikipediaPage wikipediaPage;
 
-    @Given("^The user has opened the Wikipedia Homepage$")
+    @Given("^The user opened the Wikipedia Homepage$")
     public void userIsOpenMainPage() throws NoSuchFieldException {
         logFactoryService.getLogger().info("Step start: The user has opened the Wikipedia Homepage");
         wikipediaPage.open(applicationProperties.getWikipediaUrl());

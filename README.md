@@ -47,6 +47,10 @@ The Framework uses [Browserstack](https://mvnrepository.com/artifact/com.browser
      public static String username = System.getenv("BROWSERSTACK_USERNAME");
      public static String accessKey = System.getenv("BROWSERSTACK_ACCESS_KEY");
 ```
+# JUnit
+* To run a single test, run `mvn install -Dbrowser=<BROWSER>`
+  * Note - use command line properties to set additional webdriver capabilities
+* To run parallel tests, run `make run_all_in_parallel`
 # Quickstart
 
 - [Spring Cucumber Test Harness](https://github.com/cmccarthyIrl/spring-cucumber-test-harness) - `Recommended`
